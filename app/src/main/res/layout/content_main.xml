@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn="@layout/activity_main"
-    tools:context="com.poc.google.nearby.MainActivity">
+    tools:context="com.poc.google.nearby.PublishActivity">
 
     <TextView
         android:layout_width="wrap_content"

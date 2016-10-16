@@ -19,13 +19,13 @@ import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 
 
-public class MainActivity extends AppCompatActivity implements
+public class PublishActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
     private Message mActiveMessage;
-    public static final String TAG="Nearby POC";
+    public static final String TAG = "Nearby POC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        if (!mGoogleApiClient.isConnected())
+            mGoogleApiClient.connect();
     }
 
     @Override
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements
         mActiveMessage = new Message(message.getBytes());
         Nearby.Messages.publish(mGoogleApiClient, mActiveMessage);
     }
+
     private void unpublish() {
         Log.i(TAG, "Unpublishing.");
         if (mActiveMessage != null) {
